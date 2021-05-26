@@ -23,6 +23,15 @@
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
+  "dependencies": {
+    "react": "^16.0.0",
+    "axios": "^0.21.1",
+    "react-transition-group": "^4.4.1",
+    "stream-chat": "3.7.0",
+    "stream-chat-react": "5.1.7",
+    "vimond-replay": "^3.0.0",
+    "react-file-utils": "^1.1.0"
+  },
   "peerDependencies": {
     "react": "^16.0.0",
     "axios": "^0.21.1",
