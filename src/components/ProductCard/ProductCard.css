@@ -1,0 +1,64 @@
+.rcw-message .rcw-client .card {
+  border: 0;
+  border-radius: 10px;
+  background-color: #f4f7f9;
+  width: 250px;
+  height: auto;
+  text-align: center;
+  transition: 0.3s ease-in-out;
+  padding: 0 0 12px 0;
+}
+
+.rcw-message .rcw-client .card header {
+  border-radius: 10px 10px 0 0;
+  background-color: #37373733;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.rcw-message .rcw-client .card img {
+  width: 160px;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 10px;
+  border: 2px solid #37373766;
+  margin-bottom: 10px;
+  transition: 0.3s ease-in-out;
+}
+
+.rcw-message .rcw-client .card img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.rcw-message .rcw-client .card span.preco {
+  color: var(--color-dark-gray);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.rcw-message .rcw-client .card .btn-section {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.rcw-message .rcw-client .card .btn-section button {
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid var(--color-dark-gray);
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 4px 12px;
+  transition: 0.3s ease-in-out;
+}
+
+.rcw-message .rcw-client .card .btn-section button:hover {
+  border: 2px solid #37373733;
+}

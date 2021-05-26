@@ -1,10 +1,10 @@
 {
-  "name": "whitebrim-chat-widget",
+  "name": "@whitebrim/whitebrim-chat-widget",
   "version": "1.0.0",
   "description": "Customer Support Widget",
-  "author": "Diogo-k",
+  "author": "cottonhat",
   "license": "MIT",
-  "repository": "Diogo-k/whitebrim-chat-widget",
+  "repository": "https://github.com/cottonhat/whitebrim-chat-widget",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
@@ -12,8 +12,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "build": "microbundle-crl --css-modules false --no-compress --format modern,cjs",
+    "start": "microbundle-crl watch --css-modules false --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
@@ -24,7 +24,13 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.0.0",
+    "axios": "^0.21.1",
+    "react-transition-group": "^4.4.1",
+    "stream-chat": "3.7.0",
+    "stream-chat-react": "5.1.7",
+    "vimond-replay": "^3.0.0",
+    "react-file-utils": "^1.1.0"
   },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
@@ -45,7 +51,13 @@
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "axios": "^0.21.1",
+    "react-transition-group": "^4.4.1",
+    "stream-chat": "3.7.0",
+    "stream-chat-react": "5.1.7",
+    "vimond-replay": "^3.0.0",
+    "react-file-utils": "^1.1.0"
   },
   "files": [
     "dist"

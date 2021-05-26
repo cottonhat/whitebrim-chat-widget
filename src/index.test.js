@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { WhitebrimChatWidget } from '.'
 
-describe('ExampleComponent', () => {
+describe('WhitebrimChatWidget', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(WhitebrimChatWidget).toBeTruthy()
   })
 })

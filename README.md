@@ -15,12 +15,12 @@ npm install --save whitebrim-chat-widget
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'whitebrim-chat-widget'
+import WhitebrimChatWidget from 'whitebrim-chat-widget'
 import 'whitebrim-chat-widget/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <WhitebrimChatWidget />
   }
 }
 ```
