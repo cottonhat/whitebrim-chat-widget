@@ -10,7 +10,7 @@ import { StreamChat } from 'stream-chat'
 
 import { CustomerApp } from './CustomerApp'
 import CustomWidget from './components/CustomWidget'
-import CustomPlayer from './components/stream/CustomPlayer'
+// import CustomPlayer from './components/stream/CustomPlayer'
 
 const customerClient = StreamChat.getInstance('zkkaf8bcf5xp')
 
@@ -66,10 +66,11 @@ export const WhitebrimChatWidget = ({ text }) => {
           !widget && (
             <>
               {video ? (
-                <CustomPlayer
-                  initialPlaybackProps={{ isPaused: true }}
-                  source='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-                />
+                // <CustomPlayer
+                //   initialPlaybackProps={{ isPaused: true }}
+                //   source='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+                // />
+                <></>
               ) : (
                 <CustomWidget
                   text={text}
