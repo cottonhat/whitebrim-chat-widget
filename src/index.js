@@ -1,5 +1,5 @@
-import '~vimond-replay/index.css'
-import '~stream-chat-react/dist/css/index.css'
+import 'vimond-replay/index.css'
+import 'stream-chat-react/dist/css/index.css'
 import './index.css'
 
 import React, { Fragment, useState } from 'react'

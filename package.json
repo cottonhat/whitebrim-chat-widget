@@ -1,6 +1,6 @@
 {
   "name": "@whitebrim/whitebrim-chat-widget",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Customer Support Widget",
   "author": "cottonhat",
   "license": "MIT",
@@ -32,15 +32,6 @@
     "vimond-replay": "^3.0.0",
     "react-file-utils": "^1.1.0"
   },
-  "peerDependencies": {
-    "react": "^16.0.0",
-    "axios": "^0.21.1",
-    "react-transition-group": "^4.4.1",
-    "stream-chat": "3.7.0",
-    "stream-chat-react": "5.1.7",
-    "vimond-replay": "^3.0.0",
-    "react-file-utils": "^1.1.0"
-  },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
     "babel-eslint": "^10.0.3",
@@ -60,13 +51,7 @@
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1",
-    "axios": "^0.21.1",
-    "react-transition-group": "^4.4.1",
-    "stream-chat": "3.7.0",
-    "stream-chat-react": "5.1.7",
-    "vimond-replay": "^3.0.0",
-    "react-file-utils": "^1.1.0"
+    "react-scripts": "^3.4.1"
   },
   "files": [
     "dist"
