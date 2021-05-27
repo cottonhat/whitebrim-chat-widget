@@ -1,6 +1,6 @@
 {
   "name": "@whitebrim/whitebrim-chat-widget",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Customer Support Widget",
   "author": "cottonhat",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
   },
   "dependencies": {
     "react": "^16.0.0",
