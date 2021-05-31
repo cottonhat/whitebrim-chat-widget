@@ -1,6 +1,6 @@
 {
   "name": "@whitebrim/whitebrim-chat-widget",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Customer Support Widget",
   "author": "cottonhat",
   "license": "MIT",
@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "microbundle-crl --css-modules false --no-compress --format modern,cjs",
+    "build:style": "postcss src/index.css",
     "start": "microbundle-crl watch --css-modules false --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
@@ -24,13 +25,14 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
-    "react": "^16.0.0",
     "axios": "^0.21.1",
+    "postcss": "^8.3.0",
+    "react": "^16.0.0",
+    "react-file-utils": "^1.1.0",
     "react-transition-group": "^4.4.1",
     "stream-chat": "3.7.0",
     "stream-chat-react": "5.1.7",
-    "vimond-replay": "^3.0.0",
-    "react-file-utils": "^1.1.0"
+    "vimond-replay": "^3.0.0"
   },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
