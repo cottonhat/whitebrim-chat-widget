@@ -31,7 +31,7 @@ export const CustomerApp = () => {
       ) {
         axios
           .get(
-            `http://192.168.2.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/member`,
+            `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/member`,
             {
               headers: {
                 Authorization: localStorage.getItem('wb_token')
@@ -52,7 +52,7 @@ export const CustomerApp = () => {
             )
             axios
               .post(
-                `http://192.168.2.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
+                `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
                 {
                   chatUserId: localStorage.getItem('chatUserId')
                 },
@@ -96,7 +96,7 @@ export const CustomerApp = () => {
         //! IF NOT LOGGED IN & WITHOUT TOKEN
         axios
           .get(
-            `http://192.168.2.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/guest`
+            `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/guest`
           )
           .then((result) => {
             localStorage.setItem('chatUserName', result.data.chatUserName)
@@ -112,7 +112,7 @@ export const CustomerApp = () => {
             )
             axios
               .post(
-                `http://192.168.2.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
+                `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
                 {
                   chatUserId: localStorage.getItem('chatUserId')
                 }
@@ -154,7 +154,7 @@ export const CustomerApp = () => {
         )
         axios
           .post(
-            `http://192.168.2.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
+            `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
             { chatUserId: localStorage.getItem('chatUserId') },
             localStorage.getItem('wb_token') && {
               headers: {
