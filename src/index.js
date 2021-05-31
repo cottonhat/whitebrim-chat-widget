@@ -1,11 +1,8 @@
 // import 'vimond-replay/index.css'
-// import 'stream-chat-react/dist/css/index.css'
-// import './index.css'
+import '~stream-chat-react/dist/css/index.css'
+import './index.css'
 
-import styles from './index.css'
-import chatStyles from 'stream-chat-react/dist/css/index.css'
-
-import React, { Fragment, useState, useLayoutEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import { SwitchTransition, CSSTransition } from 'react-transition-group'
 
 import { Chat } from 'stream-chat-react'
@@ -30,19 +27,6 @@ export const WhitebrimChatWidget = ({ text }) => {
   //* Which Box to Show
   const [widget, setWidget] = useState(false)
   const [video, setVideo] = useState(false)
-
-  useLayoutEffect(() => {
-    let styleElement
-    let styleElement2
-
-    if (typeof document !== 'undefined' && !styleElement) {
-      styleElement = document.head.appendChild(document.createElement('style'))
-      styleElement.innerHTML = styles
-
-      styleElement2 = document.head.appendChild(document.createElement('style'))
-      styleElement2.innerHTML = chatStyles
-    }
-  }, [])
 
   const changeVisibility = (handleToggle) => {
     if (handleToggle) {
