@@ -15,7 +15,12 @@ import { CustomerMessageInput } from './components/MessageInput/CustomerMessageI
 
 import { CloseCustomerIcon, OpenCustomerIcon } from './assets'
 
-export const CustomerApp = () => {
+export const CustomerApp = ({ projectId }) => {
+  const apiUrl =
+    process.env.NODE_ENV === 'development'
+      ? 'http://10.0.8.2:4001'
+      : 'https://api.whitebrim.co'
+
   const { client: customerClient } = useContext(ChatContext)
 
   const [customerChannel, setCustomerChannel] = useState(null)
@@ -30,14 +35,11 @@ export const CustomerApp = () => {
         !customerChannel
       ) {
         axios
-          .get(
-            `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/member`,
-            {
-              headers: {
-                Authorization: localStorage.getItem('wb_token')
-              }
+          .get(`${apiUrl}/api/livestream/${projectId}/member`, {
+            headers: {
+              Authorization: localStorage.getItem('wb_token')
             }
-          )
+          })
           .then((result) => {
             localStorage.setItem('chatUserName', result.data.chatUserName)
             localStorage.setItem('chatUserId', result.data.chatUserId)
@@ -52,7 +54,7 @@ export const CustomerApp = () => {
             )
             axios
               .post(
-                `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
+                `${apiUrl}/api/livestream/${projectId}/channel`,
                 {
                   chatUserId: localStorage.getItem('chatUserId')
                 },
@@ -95,9 +97,7 @@ export const CustomerApp = () => {
       ) {
         //! IF NOT LOGGED IN & WITHOUT TOKEN
         axios
-          .get(
-            `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/guest`
-          )
+          .get(`${apiUrl}/api/livestream/${projectId}/guest`)
           .then((result) => {
             localStorage.setItem('chatUserName', result.data.chatUserName)
             localStorage.setItem('chatUserId', result.data.chatUserId)
@@ -111,12 +111,9 @@ export const CustomerApp = () => {
               result.data.token
             )
             axios
-              .post(
-                `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
-                {
-                  chatUserId: localStorage.getItem('chatUserId')
-                }
-              )
+              .post(`${apiUrl}/api/livestream/${projectId}/channel`, {
+                chatUserId: localStorage.getItem('chatUserId')
+              })
               .then(async (result) => {
                 const newChannel = await customerClient.channel(
                   'commerce',
@@ -154,7 +151,7 @@ export const CustomerApp = () => {
         )
         axios
           .post(
-            `http://10.0.8.2:4001/api/livestream/5f3e99d77e0c0f3d06fe361b/channel`,
+            `${apiUrl}/api/livestream/${projectId}/channel`,
             { chatUserId: localStorage.getItem('chatUserId') },
             localStorage.getItem('wb_token') && {
               headers: {
@@ -247,7 +244,10 @@ export const CustomerApp = () => {
                     style={{ position: 'relative' }}
                     className='str-chat__list'
                   >
-                    <div className='loader-abs spinner-border' role='status' />
+                    <div
+                      className='loader___abs spinner-border'
+                      role='status'
+                    />
                   </div>
                 </div>
                 <footer className='footer whitebrim-footer'>

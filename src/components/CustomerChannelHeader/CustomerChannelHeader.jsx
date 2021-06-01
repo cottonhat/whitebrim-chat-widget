@@ -6,7 +6,6 @@ import './CustomerChannelHeader.css'
 import { ClockIcon } from '../../assets'
 
 export const CustomerChannelHeader = ({ customerChannel }) => {
-  console.log(customerChannel.data.created_by.name)
   return (
     <div className='channel-header__container'>
       <div className='channel-header__heading'>

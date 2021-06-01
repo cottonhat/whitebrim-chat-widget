@@ -14,7 +14,7 @@ import CustomWidget from './components/CustomWidget'
 
 const customerClient = StreamChat.getInstance('zkkaf8bcf5xp')
 
-export const WhitebrimChatWidget = ({ text }) => {
+export const WhitebrimChatWidget = ({ projectId }) => {
   //* 1st Box
   const [widgetOpen, setWidgetOpen] = useState(false)
 
@@ -60,7 +60,7 @@ export const WhitebrimChatWidget = ({ text }) => {
       >
         {widget && customerClient ? (
           <Chat client={customerClient} theme='commerce light'>
-            <CustomerApp />
+            <CustomerApp projectId={projectId} />
           </Chat>
         ) : (
           !widget && (
@@ -73,7 +73,7 @@ export const WhitebrimChatWidget = ({ text }) => {
                 <></>
               ) : (
                 <CustomWidget
-                  text={text}
+                  projectId={projectId}
                   widgetOpen={widgetOpen}
                   changeVisibility={changeVisibility}
                   changeWidget={changeWidget}
