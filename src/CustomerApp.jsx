@@ -15,12 +15,7 @@ import { CustomerMessageInput } from './components/MessageInput/CustomerMessageI
 
 import { CloseCustomerIcon, OpenCustomerIcon } from './assets'
 
-export const CustomerApp = ({ projectId }) => {
-  const apiUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://10.0.8.2:4001'
-      : 'https://api.whitebrim.co'
-
+export const CustomerApp = ({ projectId, apiUrl }) => {
   const { client: customerClient } = useContext(ChatContext)
 
   const [customerChannel, setCustomerChannel] = useState(null)

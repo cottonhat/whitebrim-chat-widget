@@ -10,11 +10,17 @@ import { StreamChat } from 'stream-chat'
 
 import { CustomerApp } from './CustomerApp'
 import CustomWidget from './components/CustomWidget'
+import axios from 'axios'
 // import CustomPlayer from './components/stream/CustomPlayer'
 
 const customerClient = StreamChat.getInstance('zkkaf8bcf5xp')
 
-export const WhitebrimChatWidget = ({ projectId }) => {
+const WhitebrimChatWidget = ({ projectId }) => {
+  const apiUrl =
+    process.env.NODE_ENV === 'development'
+      ? 'http://10.0.8.2:4001'
+      : 'https://api.whitebrim.co'
+
   //* 1st Box
   const [widgetOpen, setWidgetOpen] = useState(false)
 
@@ -60,7 +66,7 @@ export const WhitebrimChatWidget = ({ projectId }) => {
       >
         {widget && customerClient ? (
           <Chat client={customerClient} theme='commerce light'>
-            <CustomerApp projectId={projectId} />
+            <CustomerApp apiUrl={apiUrl} projectId={projectId} />
           </Chat>
         ) : (
           !widget && (
@@ -73,6 +79,7 @@ export const WhitebrimChatWidget = ({ projectId }) => {
                 <></>
               ) : (
                 <CustomWidget
+                  apiUrl={apiUrl}
                   projectId={projectId}
                   widgetOpen={widgetOpen}
                   changeVisibility={changeVisibility}
@@ -86,3 +93,29 @@ export const WhitebrimChatWidget = ({ projectId }) => {
     </SwitchTransition>
   )
 }
+
+const convertChatUser = ({ projectId }) => {
+  const apiUrl =
+    process.env.NODE_ENV === 'development'
+      ? 'http://10.0.8.2:4001'
+      : 'https://api.whitebrim.co'
+
+  axios
+    .post(
+      `${apiUrl}/livestream/${projectId}/convert`,
+      {},
+      {
+        headers: {
+          Authorization: localStorage.getItem('chatUserId')
+        }
+      }
+    )
+    .then((result) => {
+      // console.log(result)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
+export { WhitebrimChatWidget, convertChatUser }
