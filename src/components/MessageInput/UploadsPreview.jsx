@@ -17,7 +17,7 @@ export const UploadsPreview = ({
   const channelContext = useContext(ChannelContext)
 
   return (
-    <>
+    <Fragment>
       {imageOrder.length > 0 && (
         <ImagePreviewer
           imageUploads={imageOrder.map((id) => imageUploads[id])}
@@ -39,6 +39,6 @@ export const UploadsPreview = ({
           handleFiles={uploadNewFiles}
         />
       )}
-    </>
+    </Fragment>
   )
 }

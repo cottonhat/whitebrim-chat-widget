@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Channel,
   ChatContext,
@@ -15,7 +15,12 @@ import { CustomerMessageInput } from './components/MessageInput/CustomerMessageI
 
 import { CloseCustomerIcon, OpenCustomerIcon } from './assets'
 
-export const CustomerApp = ({ projectId, apiUrl }) => {
+export const CustomerApp = ({
+  projectId,
+  apiUrl,
+  introMessage,
+  openingPrompts
+}) => {
   const { client: customerClient } = useContext(ChatContext)
 
   const [customerChannel, setCustomerChannel] = useState(null)
@@ -157,12 +162,7 @@ export const CustomerApp = ({ projectId, apiUrl }) => {
           .then(async (result) => {
             const newChannel = await customerClient.channel(
               'commerce',
-              result.data.channel.id,
-              {
-                name: 'Agent Name',
-                image: null, // eslint-disable-line
-                subtitle: 'Teste'
-              }
+              result.data.channel.id
             )
 
             if (newChannel.state.messages.length) {
@@ -192,7 +192,11 @@ export const CustomerApp = ({ projectId, apiUrl }) => {
               <div>
                 <MessageList
                   EmptyStateIndicator={(props) => (
-                    <EmptyStateIndicator {...props} channel={customerChannel} />
+                    <EmptyStateIndicator
+                      {...props}
+                      channel={customerChannel}
+                      openingPrompts={openingPrompts}
+                    />
                   )}
                   Message={MessageCommerce}
                 />
@@ -228,9 +232,7 @@ export const CustomerApp = ({ projectId, apiUrl }) => {
                           👋
                         </span>
                       </p>
-                      <p className='channel-header__subtitle'>
-                        We are here to help.
-                      </p>
+                      <p className='channel-header__subtitle'>{introMessage}</p>
                     </div>
                   </div>
                 </div>
@@ -252,6 +254,7 @@ export const CustomerApp = ({ projectId, apiUrl }) => {
                       className='whitebrim-link'
                       href='https://whitebrim.co/'
                       target='_blank'
+                      rel='noreferrer'
                     >
                       Whitebrim
                     </a>
@@ -267,9 +270,9 @@ export const CustomerApp = ({ projectId, apiUrl }) => {
         onClick={() => setOpen(!open)}
       >
         {open ? (
-          <CloseCustomerIcon className={`toggle-button-close`} />
+          <CloseCustomerIcon className='toggle-button-close' />
         ) : (
-          <OpenCustomerIcon className={`toggle-button-open`} />
+          <OpenCustomerIcon className='toggle-button-open' />
         )}
       </div>
     </div>

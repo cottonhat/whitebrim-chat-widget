@@ -1,8 +1,48 @@
-import React from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
+import axios from 'axios'
 
 import { CloseCustomerIcon, OpenCustomerIcon } from '../assets'
 
-const CustomWidget = ({ widgetOpen, changeVisibility, changeWidget, text }) => {
+const CustomWidget = ({
+  apiUrl,
+  projectId,
+  widgetOpen,
+  changeVisibility,
+  changeWidget,
+  introMessage
+}) => {
+  const [initialChannel, setInitialChannel] = useState(null)
+  const [fetch, setFetch] = useState(false)
+
+  useEffect(() => {
+    if (
+      !fetch &&
+      localStorage.getItem('wb_token') &&
+      localStorage.getItem('chatUserId')
+    ) {
+      axios
+        .post(
+          `${apiUrl}/api/livestream/${projectId}/channel`,
+          { chatUserId: localStorage.getItem('chatUserId') },
+          {
+            headers: {
+              Authorization: localStorage.getItem('wb_token')
+            }
+          }
+        )
+        .then(async (result) => {
+          setInitialChannel(result.data.channel)
+          setFetch(true)
+        })
+        .catch((error) => {
+          console.error(error)
+          setFetch(true)
+        })
+    } else {
+      setFetch(true)
+    }
+  }, [fetch, initialChannel])
+
   return (
     <div
       className={
@@ -28,9 +68,7 @@ const CustomWidget = ({ widgetOpen, changeVisibility, changeWidget, text }) => {
                       👋
                     </span>
                   </p>
-                  <p className='channel-header__subtitle'>
-                    We are here to help.
-                  </p>
+                  <p className='channel-header__subtitle'>{introMessage}</p>
                 </div>
               </div>
             </div>
@@ -38,33 +76,67 @@ const CustomWidget = ({ widgetOpen, changeVisibility, changeWidget, text }) => {
               <div className='str-chat__list'>
                 <div className='empty-state__container'>
                   <div className='welcome-card-container'>
-                    <div className='welcome-card-title'>
-                      <span>Start conversation</span>
-                    </div>
-                    <div className='welcome-card-container-time'>
-                      <img
-                        className='welcome-card-img'
-                        src='https://picsum.photos/200'
-                        alt='error 404'
-                      />
+                    {!fetch ? (
+                      <div className='loader___abs' />
+                    ) : fetch && initialChannel ? (
+                      <Fragment>
+                        <div className='welcome-card-title'>
+                          <span>Resume conversation</span>
+                        </div>
+                        <div className='welcome-card-container-time'>
+                          <img
+                            className='welcome-card-img'
+                            src='https://picsum.photos/200'
+                            alt='error 404'
+                          />
 
-                      <div className='welcome-card-flex-container'>
-                        <span className='welcome-card-text'>
-                          Our usual reply time
-                        </span>
-                        <span className='welcome-card-text timer'>
-                          A few minutes
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      className='welcome-card-btn-send'
-                      onClick={() => changeWidget()}
-                    >
-                      Send us a message
-                    </button>
+                          <div className='welcome-card-flex-container'>
+                            <span className='welcome-card-text'>
+                              Our usual reply time
+                            </span>
+                            <span className='welcome-card-text timer'>
+                              A few minutes
+                            </span>
+                          </div>
+                        </div>
+                        <button
+                          className='welcome-card-btn-send'
+                          onClick={() => changeWidget()}
+                        >
+                          Send us a message
+                        </button>
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <div className='welcome-card-title'>
+                          <span>Start conversation</span>
+                        </div>
+                        <div className='welcome-card-container-time'>
+                          <img
+                            className='welcome-card-img'
+                            src='https://picsum.photos/200'
+                            alt='error 404'
+                          />
+
+                          <div className='welcome-card-flex-container'>
+                            <span className='welcome-card-text'>
+                              Our usual reply time
+                            </span>
+                            <span className='welcome-card-text timer'>
+                              A few minutes
+                            </span>
+                          </div>
+                        </div>
+                        <button
+                          className='welcome-card-btn-send'
+                          onClick={() => changeWidget()}
+                        >
+                          Send us a message
+                        </button>
+                      </Fragment>
+                    )}
                   </div>
-                  <div
+                  {/* <div
                     className='welcome-card-container'
                     style={{ paddingBottom: 0 }}
                   >
@@ -117,7 +189,7 @@ const CustomWidget = ({ widgetOpen, changeVisibility, changeWidget, text }) => {
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -128,6 +200,7 @@ const CustomWidget = ({ widgetOpen, changeVisibility, changeWidget, text }) => {
                   className='whitebrim-link'
                   href='https://whitebrim.co/'
                   target='_blank'
+                  rel='noreferrer'
                 >
                   Whitebrim
                 </a>
@@ -143,9 +216,9 @@ const CustomWidget = ({ widgetOpen, changeVisibility, changeWidget, text }) => {
         }`}
       >
         {widgetOpen ? (
-          <CloseCustomerIcon className={`toggle-button-close`} />
+          <CloseCustomerIcon className='toggle-button-close' />
         ) : (
-          <OpenCustomerIcon className={`toggle-button-open`} />
+          <OpenCustomerIcon className='toggle-button-open' />
         )}
       </div>
     </div>

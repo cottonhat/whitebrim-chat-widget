@@ -430,6 +430,7 @@ iframe {
 }
 
 .welcome-card-btn-send {
+  cursor: pointer;
   border: 1px solid #212121;
   padding: 12px 32px;
   border-radius: 999px;
@@ -524,4 +525,8 @@ iframe {
 .str-chat.messaging,
 .str-chat.commerce {
   background: transparent;
+}
+
+.rta__textarea.str-chat__textarea__textarea {
+  overflow-y: hidden;
 }

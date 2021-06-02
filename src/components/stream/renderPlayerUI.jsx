@@ -103,7 +103,7 @@ const renderPlayerUI = ({
               configuration={configuration}
               {...prefix}
               render={({ fullscreenState, interactionState }) => (
-                <>
+                <Fragment>
                   <ControlledVideoStreamer {...prefix} />
 
                   <ExitButton
@@ -184,7 +184,7 @@ const renderPlayerUI = ({
                     configuration={configuration}
                     {...externalProps.initialPlaybackProps}
                   />
-                </>
+                </Fragment>
               )}
             />
             <footer className='footer whitebrim-footer'>
@@ -194,6 +194,7 @@ const renderPlayerUI = ({
                   className='whitebrim-link'
                   href='https://whitebrim.co/'
                   target='_blank'
+                  rel='noreferrer'
                 >
                   Whitebrim
                 </a>
