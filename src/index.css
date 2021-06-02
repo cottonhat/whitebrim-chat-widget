@@ -530,3 +530,7 @@ iframe {
 .rta__textarea.str-chat__textarea__textarea {
   overflow-y: hidden;
 }
+
+.str-chat-container {
+  max-width: 340px;
+}

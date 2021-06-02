@@ -2,8 +2,7 @@ import React from 'react';
 
 export const FileIcon = () => (
     <div style={{
-        display: 'flex', marginLeft: '10px',
-        marginTop: 7
+        display: 'flex', marginLeft: '10px'
     }}>
         <svg width='11' height='17' viewBox='0 0 11 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
