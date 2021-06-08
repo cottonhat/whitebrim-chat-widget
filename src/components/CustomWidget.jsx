@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
 
+import IntlMessages from './IntlMessages'
+
 import { CloseCustomerIcon, OpenCustomerIcon } from '../assets'
 
 const CustomWidget = ({
@@ -31,7 +33,7 @@ const CustomWidget = ({
           }
         )
         .then(async (result) => {
-          setInitialChannel(result.data.channel)
+          setInitialChannel(result.data)
           setFetch(true)
         })
         .catch((error) => {
@@ -41,7 +43,7 @@ const CustomWidget = ({
     } else {
       setFetch(true)
     }
-  }, [fetch, initialChannel])
+  }, [])
 
   return (
     <div
@@ -63,7 +65,7 @@ const CustomWidget = ({
               <div className='channel-header__heading'>
                 <div className='channel-header__text'>
                   <p className='channel-header__name'>
-                    Hello
+                    <IntlMessages id='HeaderHello' />
                     <span role='img' aria-label='waving-hand'>
                       👋
                     </span>
@@ -80,22 +82,31 @@ const CustomWidget = ({
                       <div className='loader___abs' />
                     ) : fetch && initialChannel ? (
                       <Fragment>
-                        <div className='welcome-card-title'>
-                          <span>Resume conversation</span>
+                        <div
+                          className='welcome-card-title'
+                          style={{ marginBottom: 10 }}
+                        >
+                          <span>
+                            <IntlMessages id='CardTitle2' />
+                          </span>
                         </div>
                         <div className='welcome-card-container-time'>
                           <img
                             className='welcome-card-img'
-                            src='https://picsum.photos/200'
+                            src={initialChannel.channel.created_by.image}
                             alt='error 404'
                           />
 
                           <div className='welcome-card-flex-container'>
                             <span className='welcome-card-text'>
-                              Our usual reply time
+                              {initialChannel.channel.created_by.name}
                             </span>
                             <span className='welcome-card-text timer'>
-                              A few minutes
+                              {
+                                initialChannel.messages[
+                                  initialChannel.messages.length - 1
+                                ]
+                              }
                             </span>
                           </div>
                         </div>
@@ -103,13 +114,15 @@ const CustomWidget = ({
                           className='welcome-card-btn-send'
                           onClick={() => changeWidget()}
                         >
-                          Send us a message
+                          <IntlMessages id='CardButton' />
                         </button>
                       </Fragment>
                     ) : (
                       <Fragment>
                         <div className='welcome-card-title'>
-                          <span>Start conversation</span>
+                          <span>
+                            <IntlMessages id='CardTitle' />
+                          </span>
                         </div>
                         <div className='welcome-card-container-time'>
                           <img
@@ -120,10 +133,10 @@ const CustomWidget = ({
 
                           <div className='welcome-card-flex-container'>
                             <span className='welcome-card-text'>
-                              Our usual reply time
+                              <IntlMessages id='CardSubtitle' />
                             </span>
                             <span className='welcome-card-text timer'>
-                              A few minutes
+                              <IntlMessages id='LastOnline' />
                             </span>
                           </div>
                         </div>
@@ -131,7 +144,7 @@ const CustomWidget = ({
                           className='welcome-card-btn-send'
                           onClick={() => changeWidget()}
                         >
-                          Send us a message
+                          <IntlMessages id='CardButton' />
                         </button>
                       </Fragment>
                     )}
@@ -195,7 +208,7 @@ const CustomWidget = ({
             </div>
             <footer className='footer whitebrim-footer'>
               <span className='footer-text'>
-                Powered by{' '}
+                <IntlMessages id='Powered' />{' '}
                 <a
                   className='whitebrim-link'
                   href='https://whitebrim.co/'

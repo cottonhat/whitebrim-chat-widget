@@ -32,6 +32,8 @@ import UnconnectedTitleOverlay from './TitleOverlay'
 import graphics from 'vimond-replay/default-player/default-skin/graphics'
 import strings from 'vimond-replay/default-player/strings'
 
+import IntlMessages from '../IntlMessages'
+
 import { CloseCustomerIcon, OpenCustomerIcon } from '../../assets'
 
 const { AudioSelector, SubtitlesSelector, Volume } = SettingsStorage
@@ -189,7 +191,7 @@ const renderPlayerUI = ({
             />
             <footer className='footer whitebrim-footer'>
               <span className='footer-text'>
-                Powered by{' '}
+                <IntlMessages id='Powered' />{' '}
                 <a
                   className='whitebrim-link'
                   href='https://whitebrim.co/'

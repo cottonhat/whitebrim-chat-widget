@@ -5,6 +5,8 @@ import './CustomerChannelHeader.css'
 
 import { ClockIcon } from '../../assets'
 
+import IntlMessages from '../IntlMessages'
+
 export const CustomerChannelHeader = ({ customerChannel }) => {
   return (
     <div className='channel-header__container'>
@@ -21,20 +23,25 @@ export const CustomerChannelHeader = ({ customerChannel }) => {
         </div>
         <div className='channel-header__text'>
           <p className='channel-header__name'>
-            Hello
+            <IntlMessages id='HeaderHello' />
             <span role='img' aria-label='waving-hand'>
               👋
             </span>
           </p>
           <p className='channel-header__subtitle'>
-            {customerChannel.data.created_by.name} is here to help.
+            {customerChannel.data.created_by.name},
+            <br />
+            <IntlMessages id='LastOnlineIcon' />
           </p>
         </div>
       </div>
-      <div className='channel-header__wait__wrapper' style={{ marginTop: 10 }}>
-        <ClockIcon color={'#fff'} />
+      <div className='channel-header__wait__wrapper' style={{ marginTop: 25 }}>
+        <ClockIcon color='#fff' />
         <p className='channel-header__wait__text'>
-          Average wait time: <b>2 minutes</b>
+          <IntlMessages id='TimeAverageWait' />{' '}
+          <b>
+            <IntlMessages id='TimeAverage' />
+          </b>
         </p>
       </div>
     </div>

@@ -12,6 +12,7 @@ import axios from 'axios'
 import { EmptyStateIndicator } from './components/CustomerEmptyStateIndicator/EmptyStateIndicator'
 import { CustomerChannelHeader } from './components/CustomerChannelHeader/CustomerChannelHeader.jsx'
 import { CustomerMessageInput } from './components/MessageInput/CustomerMessageInput'
+import IntlMessages from './components/IntlMessages'
 
 import { CloseCustomerIcon, OpenCustomerIcon } from './assets'
 
@@ -23,10 +24,18 @@ export const CustomerApp = ({
 }) => {
   const { client: customerClient } = useContext(ChatContext)
 
+  const [unreadCount, setUnreadCount] = useState(null)
+
   const [customerChannel, setCustomerChannel] = useState(null)
   const [open, setOpen] = useState(true)
 
   useEffect(() => {
+    customerClient.on((event) => {
+      if (event.total_unread_count) {
+        setUnreadCount(event.total_unread_count)
+      }
+    })
+
     const getCustomerChannel = async () => {
       //! IF LOGGED IN & WITHOUT TOKEN
       if (
@@ -227,7 +236,7 @@ export const CustomerApp = ({
                   <div className='channel-header__heading'>
                     <div className='channel-header__text'>
                       <p className='channel-header__name'>
-                        Hello
+                        <IntlMessages id='HeaderHello' />
                         <span role='img' aria-label='waving-hand'>
                           👋
                         </span>
@@ -249,7 +258,7 @@ export const CustomerApp = ({
                 </div>
                 <footer className='footer whitebrim-footer'>
                   <span className='footer-text'>
-                    Powered by{' '}
+                    <IntlMessages id='Powered' />{' '}
                     <a
                       className='whitebrim-link'
                       href='https://whitebrim.co/'
@@ -267,8 +276,14 @@ export const CustomerApp = ({
       )}
       <div
         className={`toggle-button ${open && 'close-button'}`}
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!open)
+          setUnreadCount(null)
+        }}
       >
+        {!open && unreadCount && (
+          <span className='rcw-badge'>{unreadCount}</span>
+        )}
         {open ? (
           <CloseCustomerIcon className='toggle-button-close' />
         ) : (

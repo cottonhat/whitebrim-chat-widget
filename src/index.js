@@ -5,7 +5,12 @@ import './index.css'
 import React, { Fragment, useState } from 'react'
 import { SwitchTransition, CSSTransition } from 'react-transition-group'
 
-import { Chat } from 'stream-chat-react'
+import { IntlProvider } from 'react-intl'
+import AppLocale from './lang/'
+import ptChat from './lang/chatPt'
+import enChat from './lang/chatEn'
+
+import { Chat, Streami18n } from 'stream-chat-react'
 import { StreamChat } from 'stream-chat'
 
 import { CustomerApp } from './CustomerApp'
@@ -16,10 +21,20 @@ import axios from 'axios'
 const customerClient = StreamChat.getInstance('zkkaf8bcf5xp')
 const apiUrl =
   process.env.NODE_ENV === 'development'
-    ? 'http://192.168.2.2:4001'
+    ? 'http://10.0.8.2:4001'
     : 'https://api.whitebrim.co'
 
-const WhitebrimChatWidget = ({ projectId, introMessage, openingPrompts }) => {
+const WhitebrimChatWidget = ({
+  projectId,
+  introMessage,
+  openingPrompts,
+  locale
+}) => {
+  const i18n = new Streami18n({
+    language: locale,
+    translationsForLanguage: locale === 'pt' ? ptChat : enChat
+  })
+
   //* 1st Box
   const [widgetOpen, setWidgetOpen] = useState(false)
 
@@ -53,49 +68,60 @@ const WhitebrimChatWidget = ({ projectId, introMessage, openingPrompts }) => {
     }
   }
 
+  const currentAppLocale = AppLocale[locale]
+
   return (
-    <SwitchTransition>
-      <CSSTransition
-        key={widget ? 'A' : 'B'}
-        timeout={{ enter: 300, exit: 300 }}
-        classNames='fadeJumbo'
-        mountOnEnter
-        unmountOnExit
-        in
-      >
-        {widget && customerClient ? (
-          <Chat client={customerClient} theme='commerce light'>
-            <CustomerApp
-              apiUrl={apiUrl}
-              projectId={projectId}
-              introMessage={introMessage}
-              openingPrompts={openingPrompts}
-            />
-          </Chat>
-        ) : (
-          !widget && (
-            <Fragment>
-              {video ? (
-                // <CustomPlayer
-                //   initialPlaybackProps={{ isPaused: true }}
-                //   source='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-                // />
-                <Fragment />
-              ) : (
-                <CustomWidget
-                  apiUrl={apiUrl}
-                  projectId={projectId}
-                  introMessage={introMessage}
-                  widgetOpen={widgetOpen}
-                  changeVisibility={changeVisibility}
-                  changeWidget={changeWidget}
-                />
-              )}
-            </Fragment>
-          )
-        )}
-      </CSSTransition>
-    </SwitchTransition>
+    <IntlProvider
+      locale={currentAppLocale.locale}
+      messages={currentAppLocale.messages}
+    >
+      <SwitchTransition>
+        <CSSTransition
+          key={widget ? 'A' : 'B'}
+          timeout={{ enter: 300, exit: 300 }}
+          classNames='fadeJumbo'
+          mountOnEnter
+          unmountOnExit
+          in
+        >
+          {widget && customerClient ? (
+            <Chat
+              client={customerClient}
+              i18nInstance={i18n}
+              theme='commerce light'
+            >
+              <CustomerApp
+                apiUrl={apiUrl}
+                projectId={projectId}
+                introMessage={introMessage}
+                openingPrompts={openingPrompts}
+              />
+            </Chat>
+          ) : (
+            !widget && (
+              <Fragment>
+                {video ? (
+                  // <CustomPlayer
+                  //   initialPlaybackProps={{ isPaused: true }}
+                  //   source='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+                  // />
+                  <Fragment />
+                ) : (
+                  <CustomWidget
+                    apiUrl={apiUrl}
+                    projectId={projectId}
+                    introMessage={introMessage}
+                    widgetOpen={widgetOpen}
+                    changeVisibility={changeVisibility}
+                    changeWidget={changeWidget}
+                  />
+                )}
+              </Fragment>
+            )
+          )}
+        </CSSTransition>
+      </SwitchTransition>
+    </IntlProvider>
   )
 }
 
